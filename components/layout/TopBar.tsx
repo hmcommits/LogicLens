@@ -7,10 +7,9 @@ import { motion } from "framer-motion";
 interface TopBarProps {
   onGenerate?: () => void;
   onExport?: () => void;
-  onScan?: () => void;
 }
 
-export default function TopBar({ onGenerate, onExport, onScan }: TopBarProps) {
+export default function TopBar({ onGenerate, onExport }: TopBarProps) {
   const status = useGenerationStore((s) => s.status);
   const sketchImageBase64 = useCanvasStore((s) => s.sketchImageBase64);
   const isEmpty = useCanvasStore((s) => s.isEmpty);
@@ -101,22 +100,7 @@ export default function TopBar({ onGenerate, onExport, onScan }: TopBarProps) {
 
       {/* ── Actions ── */}
       <div className="flex items-center gap-2">
-        {/* Scan button */}
-        <motion.button
-          id="topbar-scan-btn"
-          onClick={onScan}
-          className="btn-ghost hidden sm:inline-flex"
-          aria-label="Scan a physical sketch with webcam"
-          title="Scan physical sketch"
-          whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
-          whileTap={{ scale: 0.97 }}
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2" />
-            <circle cx="12" cy="12" r="3" />
-          </svg>
-          <span>Scan</span>
-        </motion.button>
+
 
         {/* Export button — only shown when there's generated output */}
         {hasOutput && (

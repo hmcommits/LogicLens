@@ -4,7 +4,6 @@ import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import TopBar from "@/components/layout/TopBar";
 import StatusBar from "@/components/layout/StatusBar";
-import ScanModal from "@/components/canvas/ScanModal";
 import ScannerAnimation from "@/components/preview/ScannerAnimation";
 import { useCanvasStore } from "@/store/canvasStore";
 import { useGenerationStore } from "@/store/generationStore";
@@ -26,7 +25,6 @@ const LogicOverlay = dynamic(
 );
 
 export default function CanvasPage() {
-  const [isScanOpen, setIsScanOpen] = useState(false);
   const sketchImageBase64 = useCanvasStore((s) => s.sketchImageBase64);
   const isEmpty = useCanvasStore((s) => s.isEmpty);
   const setSketchImageBase64 = useCanvasStore((s) => s.setSketchImageBase64);
@@ -96,7 +94,6 @@ export default function CanvasPage() {
     <div className="flex flex-col h-screen overflow-hidden bg-[#080b14]">
       <TopBar
         onGenerate={handleGenerate}
-        onScan={() => setIsScanOpen(true)}
         onExport={handleExport}
       />
 
@@ -127,9 +124,6 @@ export default function CanvasPage() {
       </main>
 
       <StatusBar />
-
-      {/* Scan modal */}
-      <ScanModal isOpen={isScanOpen} onClose={() => setIsScanOpen(false)} />
 
       {/* Refinement Chat */}
       <RefinementChat />
