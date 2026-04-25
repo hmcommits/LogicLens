@@ -17,6 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL ?? "https://logiclens.vercel.app"
+  ),
   title: "LogicLens — Sketch to App, Instantly",
   description:
     "Transform hand-drawn sketches and whiteboard scribbles into fully functional, interactive React applications in real time. Powered by Gemini AI.",

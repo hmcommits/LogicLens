@@ -21,15 +21,22 @@
 
 ---
 
-## Phase 2 — Canvas & Input Layer
+## Phase 2 — Canvas & Input Layer ✅
 
-- [ ] Embed Excalidraw in `WorkspaceCanvas.tsx` with infinite canvas config
-- [ ] Implement canvas snapshot export (Excalidraw → PNG → base64)
-- [ ] Build `ScanModal.tsx` — webcam capture via `getUserMedia`, canvas frame grab
-- [ ] Implement `canvasStore.ts` (Zustand): `elements`, `sketchImageBase64`, `scanState`
-- [ ] Build `LogicOverlay.tsx` — absolute SVG layer over Excalidraw for glow effects
-- [ ] Implement "pulsing prompt" overlay animation on empty canvas state
-- [ ] Wire **Generate** button → snapshot export → trigger parse pipeline
+- [x] Embed Excalidraw in `WorkspaceCanvas.tsx` with dark theme + dynamic import (SSR-safe)
+- [x] Implement canvas snapshot export (Excalidraw → `exportToBlob` → base64 PNG)
+- [x] Build `ScanModal.tsx` — webcam via `getUserMedia` + file upload fallback, 3-phase flow
+- [x] Build `LogicOverlay.tsx` — absolute SVG layer with glow edges, node highlights, confidence colors
+- [x] Build `ScannerAnimation.tsx` — sweep bar + scan lines + centered status chip
+- [x] Implement pulsing "Draw your intent" prompt on empty canvas state
+- [x] Wire Generate button → snapshot export → `useSketchParser` hook → `/api/parse-sketch`
+- [x] Build `lib/ai/geminiClient.ts` — dual-key failover proxy wrapper
+- [x] Build `lib/ai/prompts.ts` — prompt builders for parse, generate, refine
+- [x] Build `lib/schemas/logicGraph.ts` — Zod schema + `parseLogicGraphResponse`
+- [x] Build `/api/parse-sketch` route (Gemini 2.5 Flash, 2-retry validation)
+- [x] Build `/api/generate-code` route (Edge, SSE, Gemini 2.5 Pro)
+- [x] Build `/api/refine-code` route (Edge, SSE, Gemini 2.5 Pro)
+- [x] Wire full canvas page with all Phase 2 components
 
 ---
 
