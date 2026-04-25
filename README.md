@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="public/og-image.png" alt="LogicLens Banner" width="100%" />
+  <img src="public/og-image.png" alt="LogicLens Banner" width="600" />
 
   <h1>LogicLens — Sketch to App, Instantly</h1>
   <p>An AI-powered visual development environment that instantly converts your rough whiteboard sketches and architectural diagrams into functional, production-ready React applications.</p>
 
   <p>
     <a href="#demo-video"><strong>Watch Demo Video</strong></a> · 
-    <a href="#live-deployment"><strong>View Live Project</strong></a>
+    <a href="https://logic-lens-mauve.vercel.app/"><strong>View Live Project</strong></a>
   </p>
 
   <p>
@@ -22,7 +22,7 @@
 
 ## 🚀 Live Deployment & Demo
 
-- **Live Application:** [Deploy Placeholder Link — Update with Vercel URL]
+- **Live Application:** [https://logic-lens-mauve.vercel.app/](https://logic-lens-mauve.vercel.app/)
 - **Demo Video:** [Demo Video Placeholder Link — Update with YouTube/Loom URL]
 
 *(Note: If testing locally, please ensure you supply your own Gemini API keys in `.env.local`)*
