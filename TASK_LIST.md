@@ -69,13 +69,13 @@
 
 ## Phase 5 — Refinement Chat
 
-- [ ] Build `lib/ai/refineCode.ts` — surgical patch prompt (image + graph + code + message)
-- [ ] Build `/api/refine-code/route.ts` — Edge Function, SSE streaming patch response
-- [ ] Build `useRefiner.ts` hook — SSE consumer, calls `sandpack.updateFile()` per patched file
-- [ ] Build `chatStore.ts` (Zustand): `chatHistory`, `activeKey`
-- [ ] Build `RefinementChat.tsx` — collapsible bottom drawer, message input
-- [ ] Build `ReasoningPanel.tsx` — displays `logicGraph.aiReasoning` for transparency
-- [ ] Test refinement: "make it dark themed" → verify only changed files update in < 2s
+- [x] Build `lib/ai/refineCode.ts` — surgical patch prompt (image + graph + code + message)
+- [x] Build `/api/refine-code/route.ts` — Edge Function, SSE streaming patch response
+- [x] Build `useRefiner.ts` hook — SSE consumer, calls `sandpack.updateFile()` per patched file
+- [x] Build `chatStore.ts` (Zustand): `chatHistory`, `activeKey`
+- [x] Build `RefinementChat.tsx` — collapsible bottom drawer, message input
+- [x] Build `ReasoningPanel.tsx` — displays `logicGraph.aiReasoning` for transparency
+- [x] Test refinement: "make it dark themed" → verify only changed files update in < 2s
 
 ---
 
