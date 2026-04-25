@@ -2,6 +2,7 @@ import { type NextRequest } from "next/server";
 import { getStreamingClient } from "@/lib/ai/geminiClient";
 import { buildCodeGenPrompt, buildImagePart } from "@/lib/ai/prompts";
 import { type LogicGraph } from "@/lib/schemas/logicGraph";
+import { GeneratedProjectSchema, type CodeFile } from "@/lib/schemas/generatedCode";
 
 export const runtime = "edge";
 
@@ -35,32 +36,49 @@ export async function POST(request: NextRequest) {
         const tryGenerate = async (kIdx: 1 | 2) => {
           keyIndex = kIdx;
           const client = getStreamingClient(kIdx);
-          const model = client.getGenerativeModel({ model: "gemini-2.5-pro-preview-03-25" });
+          const model = client.getGenerativeModel({ model: "gemini-2.5-flash" });
           return model.generateContentStream([prompt, imagePart]);
         };
 
-        let streamResult;
+        const streamChunks = async (kIdx: 1 | 2) => {
+          const streamResult = await tryGenerate(kIdx);
+          
+          // Fetch the first chunk to trigger any immediate HTTP errors (like 429 Quota)
+          const iterator = streamResult.stream[Symbol.asyncIterator]();
+          const firstResult = await iterator.next();
+          
+          // If we got here, the API key works. Signal active key.
+          controller.enqueue(send({ type: "key-active", keyIndex }));
+          
+          let buf = "";
+          if (!firstResult.done) {
+            const text = firstResult.value.text();
+            buf += text;
+            controller.enqueue(send({ type: "chunk", text }));
+          }
+
+          // Consume the rest of the stream
+          while (true) {
+            const { done, value } = await iterator.next();
+            if (done) break;
+            const text = value.text();
+            buf += text;
+            controller.enqueue(send({ type: "chunk", text }));
+          }
+          return buf;
+        };
+
+        let buffer = "";
         try {
-          streamResult = await tryGenerate(1);
+          buffer = await streamChunks(1);
         } catch (err) {
           const msg = (err as Error).message?.toLowerCase() ?? "";
           if (msg.includes("quota") || msg.includes("429") || msg.includes("rate") || msg.includes("overloaded")) {
             controller.enqueue(send({ type: "key-switch", keyIndex: 2 }));
-            streamResult = await tryGenerate(2);
+            buffer = await streamChunks(2); // Fallback to Key 2
           } else {
             throw err;
           }
-        }
-
-        // Signal which key is active
-        controller.enqueue(send({ type: "key-active", keyIndex }));
-
-        // Stream raw text chunks
-        let buffer = "";
-        for await (const chunk of streamResult.stream) {
-          const text = chunk.text();
-          buffer += text;
-          controller.enqueue(send({ type: "chunk", text }));
         }
 
         // Parse the complete buffer as JSON file array
@@ -69,9 +87,11 @@ export async function POST(request: NextRequest) {
             .replace(/^```(?:json)?\s*/i, "")
             .replace(/\s*```$/i, "")
             .trim();
-          const files = JSON.parse(cleaned) as Array<{ path: string; content: string }>;
+          const parsedJSON = JSON.parse(cleaned);
+          const files = GeneratedProjectSchema.parse(parsedJSON);
           controller.enqueue(send({ type: "done", files }));
-        } catch {
+        } catch (e) {
+          console.warn("Failed to parse or validate generated files", e);
           controller.enqueue(send({ type: "done-raw", text: buffer }));
         }
       } catch (err) {

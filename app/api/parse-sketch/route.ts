@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: "imageBase64 is required" }, { status: 400 });
     }
 
-    const model = await getModel("gemini-2.5-flash-preview-04-17");
+    const model = await getModel("gemini-2.5-flash");
 
     const logicGraph = await withRetry(
       async () => {
