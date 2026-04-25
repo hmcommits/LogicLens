@@ -4,9 +4,11 @@
 
 ## Vision Summary
 
-**LogicLens** is an **Intent-to-App Engine** that transforms rough whiteboard sketches or photo uploads into fully functional, interactive React applications in real time. It extracts **Semantic Logic Graphs** from user drawings — treating arrows, boxes, and scribbles as behavioral contracts — and synthesizes live, runnable code.
+**LogicLens** is an **Intent-to-App Engine** that bridges the gap between ideation and software delivery. It transforms rough whiteboard wireframes, structural flowcharts, and even messy napkin photos into fully functional, interactive React applications in real time. 
 
-**Scope:** Canvas → Sketch Parsing → Code Generation → Live Preview → Refinement Chat. No auth. No DB persistence.
+By extracting strict **Semantic Logic Graphs** from visual inputs—treating arrows, boxes, and scribbles as definitive behavioral contracts—LogicLens synthesizes live, runnable code that perfectly mimics both the spatial layout and the interactive intent of the designer.
+
+**Scope & Constraints:** Integrated Excalidraw Canvas → Dual-Modal Sketch Parsing → Generative Code Synthesis → Client-Side Sandbox Preview → Surgical Refinement Chat. (100% Serverless. No Authentication. No Database Persistence).
 
 ---
 
@@ -44,9 +46,9 @@ User (Browser)
 
 ---
 
-## Critical Design Decision: Dual-Model, Dual-Input Pipeline
+## Critical Architectural Decision: Dual-Model, Dual-Input Pipeline
 
-> This is the core intelligence architecture of LogicLens.
+> This pipeline represents the core intelligence architecture of LogicLens, designed to maximize fidelity while minimizing hallucinations.
 
 ### Why Gemini 2.5 Pro receives BOTH the image AND the LogicGraph JSON
 
