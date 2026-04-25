@@ -46,7 +46,7 @@ export default function WorkspaceCanvas({ onSnapshotReady }: WorkspaceCanvasProp
     const api = excalidrawApiRef.current;
     if (!api) return null;
 
-    const elements = api.getSceneElements();
+    const elements = api.getSceneElements().filter((el) => !el.isDeleted);
     if (!elements || elements.length === 0) return null;
 
     try {
@@ -94,8 +94,9 @@ export default function WorkspaceCanvas({ onSnapshotReady }: WorkspaceCanvasProp
         style={{ width: "100%", height: "100%", overflow: "hidden" }}
       >
         <Excalidraw
-          // @ts-expect-error — Excalidraw ref typing varies by version
-          ref={excalidrawApiRef}
+          excalidrawAPI={(api) => {
+            excalidrawApiRef.current = api;
+          }}
           theme="dark"
           UIOptions={{
             canvasActions: {

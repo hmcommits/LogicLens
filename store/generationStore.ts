@@ -56,10 +56,8 @@ export type GenerationStatus =
 interface GenerationStore {
   // Phase 1 result — semantic graph
   logicGraph: LogicGraph | null;
-  // Phase 2 result — generated code files
-  generatedFiles: CodeFile[];
-  // Files being streamed in (partial during generation)
-  streamingFiles: CodeFile[];
+  // Phase 2 result — generated code files (and streaming chunks)
+  files: CodeFile[];
   // Current pipeline status
   status: GenerationStatus;
   // Active Gemini API key indicator (1 or 2)
@@ -71,9 +69,8 @@ interface GenerationStore {
 
   // Actions
   setLogicGraph: (graph: LogicGraph) => void;
-  setGeneratedFiles: (files: CodeFile[]) => void;
-  appendStreamingChunk: (path: string, content: string) => void;
-  flushStreamingFiles: () => void;
+  setFiles: (files: CodeFile[]) => void;
+  appendFileChunk: (path: string, content: string) => void;
   setStatus: (status: GenerationStatus) => void;
   setActiveKeyIndex: (idx: 1 | 2) => void;
   setLastLatencyMs: (ms: number) => void;
@@ -83,8 +80,7 @@ interface GenerationStore {
 
 const initialState = {
   logicGraph: null,
-  generatedFiles: [],
-  streamingFiles: [],
+  files: [],
   status: "idle" as GenerationStatus,
   activeKeyIndex: 1 as 1 | 2,
   lastLatencyMs: null,
@@ -96,10 +92,10 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
 
   setLogicGraph: (logicGraph) => set({ logicGraph }),
 
-  setGeneratedFiles: (generatedFiles) => set({ generatedFiles }),
+  setFiles: (files) => set({ files }),
 
-  appendStreamingChunk: (path, content) => {
-    const existing = get().streamingFiles;
+  appendFileChunk: (path, content) => {
+    const existing = get().files;
     const fileIndex = existing.findIndex((f) => f.path === path);
     if (fileIndex >= 0) {
       const updated = [...existing];
@@ -107,17 +103,10 @@ export const useGenerationStore = create<GenerationStore>((set, get) => ({
         ...updated[fileIndex],
         content: updated[fileIndex].content + content,
       };
-      set({ streamingFiles: updated });
+      set({ files: updated });
     } else {
-      set({ streamingFiles: [...existing, { path, content }] });
+      set({ files: [...existing, { path, content }] });
     }
-  },
-
-  flushStreamingFiles: () => {
-    set((state) => ({
-      generatedFiles: state.streamingFiles,
-      streamingFiles: [],
-    }));
   },
 
   setStatus: (status) => set({ status, errorMessage: null }),
