@@ -84,8 +84,8 @@
 - [-] Three-panel layout finalization (canvas | preview pane | chat drawer)
 - [-] Responsive layout adjustments for smaller screens
 - [x] Micro-animations: hover effects, button press feedback, panel transitions
-- [-] Generate OG image for social sharing (`public/og-image.png`)
-- [-] Add meta tags, title tags, semantic HTML to all pages
+- [x] Generate OG image for social sharing (`public/og-image.png`)
+- [x] Add meta tags, title tags, semantic HTML to all pages
 - [ ] Final `next build` and error resolution
 - [ ] Deploy to Vercel, set `GEMINI_API_KEY_1` and `GEMINI_API_KEY_2` in Vercel env
 - [ ] Configure Edge Function runtime for all API routes
