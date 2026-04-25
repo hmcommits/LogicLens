@@ -57,7 +57,7 @@ export default function CanvasPage() {
     const graph = await parse(image ?? undefined);
     if (graph) {
       // Trigger code generation stream with the parsed logic graph
-      await generate(image ?? undefined);
+      await generate(image ?? undefined, graph);
     }
   }, [sketchImageBase64, isEmpty, setSketchImageBase64, parse, generate]);
 

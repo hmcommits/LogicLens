@@ -14,9 +14,10 @@ export function useCodeGenerator() {
   const setActiveKeyIndex = useGenerationStore((s) => s.setActiveKeyIndex);
   const setLastLatencyMs = useGenerationStore((s) => s.setLastLatencyMs);
 
-  const generate = useCallback(async (imageBase64?: string) => {
+  const generate = useCallback(async (imageBase64?: string, currentLogicGraph?: any) => {
     const image = imageBase64 ?? sketchImageBase64;
-    if (!image || !logicGraph) {
+    const graphToUse = currentLogicGraph ?? logicGraph;
+    if (!image || !graphToUse) {
       setError("Cannot generate code: missing sketch image or parsed logic graph.");
       return;
     }
@@ -29,7 +30,7 @@ export function useCodeGenerator() {
       const res = await fetch("/api/generate-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: image, logicGraph }),
+        body: JSON.stringify({ imageBase64: image, logicGraph: graphToUse }),
       });
 
       if (!res.ok) {
