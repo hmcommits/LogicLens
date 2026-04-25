@@ -36,7 +36,7 @@ interface WorkspaceCanvasProps {
 }
 
 export default function WorkspaceCanvas({ onSnapshotReady }: WorkspaceCanvasProps) {
-  const excalidrawApiRef = useRef<InstanceType<typeof import("@excalidraw/excalidraw").Excalidraw> | null>(null);
+  const excalidrawApiRef = useRef<any>(null);
   const setElements = useCanvasStore((s) => s.setElements);
   const setSketchImageBase64 = useCanvasStore((s) => s.setSketchImageBase64);
   const isEmpty = useCanvasStore((s) => s.isEmpty);
@@ -46,7 +46,7 @@ export default function WorkspaceCanvas({ onSnapshotReady }: WorkspaceCanvasProp
     const api = excalidrawApiRef.current;
     if (!api) return null;
 
-    const elements = api.getSceneElements().filter((el) => !el.isDeleted);
+    const elements = api.getSceneElements().filter((el: any) => !el.isDeleted);
     if (!elements || elements.length === 0) return null;
 
     try {
@@ -111,7 +111,6 @@ export default function WorkspaceCanvas({ onSnapshotReady }: WorkspaceCanvasProp
           initialData={{
             appState: {
               viewBackgroundColor: "#080b14",
-              gridSize: null,
               theme: "dark",
             },
           }}

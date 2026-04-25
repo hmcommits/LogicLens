@@ -40,6 +40,7 @@ export default function PreviewPane() {
           options={{
             showNavigator: true,
             showTabs: true,
+            // @ts-expect-error: Undocumented prop but works to hide the CodeSandbox button
             showOpenInCodeSandbox: false,
             editorHeight: "100%",
             externalResources: ["https://cdn.tailwindcss.com"],
