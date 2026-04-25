@@ -90,7 +90,7 @@
 - [ ] Deploy to Vercel, set `GEMINI_API_KEY_1` and `GEMINI_API_KEY_2` in Vercel env
 - [ ] Configure Edge Function runtime for all API routes
 - [ ] Smoke test full pipeline on deployed URL
-- [ ] Update `README.md` with setup instructions and demo
+- [x] Update `README.md` with setup instructions and demo
 
 ---
 

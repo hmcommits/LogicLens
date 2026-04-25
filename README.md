@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LogicLens — Sketch to App, Instantly
 
-## Getting Started
+LogicLens is an AI-powered visual development environment that instantly converts your rough whiteboard sketches and architectural diagrams into functional, production-ready React code. 
 
-First, run the development server:
+Built with Next.js 15, Excalidraw, Sandpack, and powered by Gemini 2.5 Flash and Pro, LogicLens offers a seamless visual-to-code pipeline running entirely in your browser.
 
+## Features
+
+- **Whiteboard Integration:** Draw UI wireframes or logic flowcharts directly on the integrated Excalidraw canvas.
+- **Multimodal AI Pipeline:** 
+  - *Phase 1 (Parse):* Gemini 2.5 Flash analyzes your drawing to extract a semantic logic graph and infer components.
+  - *Phase 2 (Generate):* Gemini 2.5 Pro synthesizes a complete, multi-file React application based on the visual input and logic graph.
+- **Live Code Preview:** The generated code is streamed in real-time and instantly mounted in an interactive Sandpack environment.
+- **Dual-Key Failover:** Configured to accept two Gemini API keys for automatic failover in case of rate limits or quota exhaustion.
+
+## Prerequisites
+
+- Node.js (v18 or higher)
+- npm or pnpm
+- At least one valid [Google Gemini API Key](https://aistudio.google.com/app/apikey). (Two are recommended for the failover system).
+
+## How to Run the Project Locally
+
+### 1. Install Dependencies
+Open your terminal in the root directory of the project and run:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure Environment Variables
+Copy the example environment file to create your local `.env` file:
+```bash
+cp .env.example .env.local
+```
+Then, open `.env.local` and add your Gemini API keys:
+```env
+GEMINI_API_KEY_1=your_first_gemini_api_key_here
+GEMINI_API_KEY_2=your_second_gemini_api_key_here
+```
+*(If you only have one key, you can safely paste it into both variables).*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Start the Development Server
+Run the Next.js development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Open the App
+Open your web browser and navigate to:
+[http://localhost:3000](http://localhost:3000)
 
-## Learn More
+## How to Use LogicLens
 
-To learn more about Next.js, take a look at the following resources:
+1. **Navigate to the Canvas:** Click the "Open Canvas" button on the landing page or navigate to `http://localhost:3000/canvas`.
+2. **Sketch:** Use the built-in Excalidraw tools to draw a wireframe (e.g., a login form, a dashboard layout, or a simple calculator).
+3. **Generate:** Click the "Generate" button in the top right. 
+4. **Watch it Build:** LogicLens will scan your drawing, synthesize the React code in real-time on the right-hand panel, and finally boot up an interactive live preview of your new application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework:** Next.js 15 (App Router)
+- **Styling:** Tailwind CSS v4, Framer Motion
+- **Canvas Engine:** Excalidraw
+- **AI Models:** Gemini 2.5 Flash (Vision Parsing) & Gemini 2.5 Pro (Code Generation)
+- **Sandbox:** Sandpack (CodeSandbox)
+- **State Management:** Zustand
