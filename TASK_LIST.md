@@ -86,9 +86,9 @@
 - [x] Micro-animations: hover effects, button press feedback, panel transitions
 - [x] Generate OG image for social sharing (`public/og-image.png`)
 - [x] Add meta tags, title tags, semantic HTML to all pages
-- [ ] Final `next build` and error resolution
+- [x] Final `next build` and error resolution
 - [ ] Deploy to Vercel, set `GEMINI_API_KEY_1` and `GEMINI_API_KEY_2` in Vercel env
-- [ ] Configure Edge Function runtime for all API routes
+- [x] Configure Edge Function runtime for all API routes
 - [ ] Smoke test full pipeline on deployed URL
 - [x] Update `README.md` with setup instructions and demo
 
