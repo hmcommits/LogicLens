@@ -12,6 +12,7 @@ import { useSketchParser } from "@/hooks/useSketchParser";
 import { useCodeGenerator } from "@/hooks/useCodeGenerator";
 import PreviewPane from "@/components/preview/PreviewPane";
 import RefinementChat from "@/components/chat/RefinementChat";
+import JSZip from "jszip";
 
 // Dynamic imports for heavy canvas/preview components
 const WorkspaceCanvas = dynamic(
@@ -60,10 +61,33 @@ export default function CanvasPage() {
     }
   }, [sketchImageBase64, isEmpty, setSketchImageBase64, parse, generate]);
 
-  const handleExport = useCallback(() => {
-    // Phase 4 — download generated files as zip
-    console.log("Export coming in Phase 4");
-  }, []);
+  const files = useGenerationStore((s) => s.files);
+
+  const handleExport = useCallback(async () => {
+    if (!files || files.length === 0) return;
+    
+    const zip = new JSZip();
+    
+    files.forEach((file) => {
+      // Remove leading slash if present for valid zip path
+      const path = file.path.startsWith("/") ? file.path.slice(1) : file.path;
+      zip.file(path, file.content);
+    });
+
+    try {
+      const blob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "logiclens-project.zip";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to generate zip file", err);
+    }
+  }, [files]);
 
   const isGenerating = status === "parsing" || status === "generating";
   const hasOutput = status === "done" || status === "refining";
