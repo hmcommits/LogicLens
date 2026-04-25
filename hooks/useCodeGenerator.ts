@@ -95,7 +95,6 @@ export function useCodeGenerator() {
     } catch (err) {
       const message = err instanceof Error ? err.message : "Code generation failed";
       setError(message);
-      setStatus("done"); // ensure we don't stay stuck generating
     }
   }, [sketchImageBase64, logicGraph, setStatus, setFiles, setError, appendFileChunk, setActiveKeyIndex, setLastLatencyMs]);
 
