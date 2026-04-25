@@ -1,0 +1,132 @@
+import { create } from "zustand";
+
+export interface LogicNode {
+  id: string;
+  type:
+    | "container"
+    | "button"
+    | "input"
+    | "text"
+    | "icon"
+    | "list"
+    | "counter"
+    | "unknown";
+  label: string;
+  boundingBox: { x: number; y: number; w: number; h: number };
+  inferredComponent: string;
+}
+
+export interface LogicEdge {
+  id: string;
+  sourceId: string;
+  targetId: string;
+  annotation: string;
+  inferredBehavior: string;
+  confidence: number;
+}
+
+export interface LogicGraph {
+  nodes: LogicNode[];
+  edges: LogicEdge[];
+  globalIntent: string;
+  suggestedComponents: string[];
+  aiReasoning: string;
+}
+
+export interface CodeFile {
+  path: string;
+  content: string;
+}
+
+export interface GeneratedProject {
+  files: CodeFile[];
+  entryPoint: string;
+  dependencies: Record<string, string>;
+}
+
+export type GenerationStatus =
+  | "idle"
+  | "parsing"
+  | "parse-done"
+  | "generating"
+  | "done"
+  | "refining"
+  | "error";
+
+interface GenerationStore {
+  // Phase 1 result — semantic graph
+  logicGraph: LogicGraph | null;
+  // Phase 2 result — generated code files
+  generatedFiles: CodeFile[];
+  // Files being streamed in (partial during generation)
+  streamingFiles: CodeFile[];
+  // Current pipeline status
+  status: GenerationStatus;
+  // Active Gemini API key indicator (1 or 2)
+  activeKeyIndex: 1 | 2;
+  // Last generation latency in ms
+  lastLatencyMs: number | null;
+  // Error message if status === 'error'
+  errorMessage: string | null;
+
+  // Actions
+  setLogicGraph: (graph: LogicGraph) => void;
+  setGeneratedFiles: (files: CodeFile[]) => void;
+  appendStreamingChunk: (path: string, content: string) => void;
+  flushStreamingFiles: () => void;
+  setStatus: (status: GenerationStatus) => void;
+  setActiveKeyIndex: (idx: 1 | 2) => void;
+  setLastLatencyMs: (ms: number) => void;
+  setError: (message: string) => void;
+  reset: () => void;
+}
+
+const initialState = {
+  logicGraph: null,
+  generatedFiles: [],
+  streamingFiles: [],
+  status: "idle" as GenerationStatus,
+  activeKeyIndex: 1 as 1 | 2,
+  lastLatencyMs: null,
+  errorMessage: null,
+};
+
+export const useGenerationStore = create<GenerationStore>((set, get) => ({
+  ...initialState,
+
+  setLogicGraph: (logicGraph) => set({ logicGraph }),
+
+  setGeneratedFiles: (generatedFiles) => set({ generatedFiles }),
+
+  appendStreamingChunk: (path, content) => {
+    const existing = get().streamingFiles;
+    const fileIndex = existing.findIndex((f) => f.path === path);
+    if (fileIndex >= 0) {
+      const updated = [...existing];
+      updated[fileIndex] = {
+        ...updated[fileIndex],
+        content: updated[fileIndex].content + content,
+      };
+      set({ streamingFiles: updated });
+    } else {
+      set({ streamingFiles: [...existing, { path, content }] });
+    }
+  },
+
+  flushStreamingFiles: () => {
+    set((state) => ({
+      generatedFiles: state.streamingFiles,
+      streamingFiles: [],
+    }));
+  },
+
+  setStatus: (status) => set({ status, errorMessage: null }),
+
+  setActiveKeyIndex: (activeKeyIndex) => set({ activeKeyIndex }),
+
+  setLastLatencyMs: (lastLatencyMs) => set({ lastLatencyMs }),
+
+  setError: (errorMessage) => set({ status: "error", errorMessage }),
+
+  reset: () => set(initialState),
+}));
