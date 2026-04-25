@@ -45,9 +45,11 @@ export default function RefinementChat() {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         {/* Header / Toggle */}
-        <button 
+        <motion.button 
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center justify-between px-4 py-3 border-b border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.02)] transition-colors rounded-t-xl w-full"
+          whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
+          whileTap={{ scale: 0.99 }}
         >
           <div className="flex items-center gap-2">
             <Terminal className="w-4 h-4 text-[#00d4ff]" />
@@ -56,7 +58,7 @@ export default function RefinementChat() {
             </span>
           </div>
           {isOpen ? <ChevronDown className="w-4 h-4 text-gray-400" /> : <ChevronUp className="w-4 h-4 text-gray-400" />}
-        </button>
+        </motion.button>
 
         {/* Content Area */}
         <AnimatePresence>
@@ -83,8 +85,10 @@ export default function RefinementChat() {
                   </div>
                 ) : (
                   messages.map((msg) => (
-                    <div 
+                    <motion.div 
                       key={msg.id} 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
                       className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                     >
                       <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-brand text-white" : "bg-[rgba(0,212,255,0.2)] text-[#00d4ff]"}`}>
@@ -93,7 +97,7 @@ export default function RefinementChat() {
                       <div className={`px-3 py-2 rounded-lg text-sm max-w-[85%] ${msg.role === "user" ? "bg-[rgba(255,255,255,0.05)] text-gray-200" : "bg-transparent text-[#a1a1aa] font-[family-name:var(--font-jetbrains-mono)]"}`}>
                         {msg.content}
                       </div>
-                    </div>
+                    </motion.div>
                   ))
                 )}
                 <div ref={messagesEndRef} />
@@ -110,13 +114,15 @@ export default function RefinementChat() {
                     disabled={isStreaming}
                     className="w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] rounded-lg pl-4 pr-10 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00d4ff] transition-colors"
                   />
-                  <button 
+                  <motion.button 
                     type="submit"
                     disabled={!input.trim() || isStreaming}
                     className="absolute right-2 p-1.5 rounded-md text-gray-400 hover:text-[#00d4ff] hover:bg-[rgba(0,212,255,0.1)] disabled:opacity-50 disabled:hover:bg-transparent transition-colors"
+                    whileHover={input.trim() && !isStreaming ? { scale: 1.1 } : {}}
+                    whileTap={input.trim() && !isStreaming ? { scale: 0.9 } : {}}
                   >
                     {isStreaming ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                  </button>
+                  </motion.button>
                 </div>
               </form>
             </motion.div>

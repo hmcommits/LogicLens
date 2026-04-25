@@ -102,19 +102,21 @@ export default function TopBar({ onGenerate, onExport, onScan }: TopBarProps) {
       {/* ── Actions ── */}
       <div className="flex items-center gap-2">
         {/* Scan button */}
-        <button
+        <motion.button
           id="topbar-scan-btn"
           onClick={onScan}
           className="btn-ghost hidden sm:inline-flex"
           aria-label="Scan a physical sketch with webcam"
           title="Scan physical sketch"
+          whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
+          whileTap={{ scale: 0.97 }}
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2" />
             <circle cx="12" cy="12" r="3" />
           </svg>
           <span>Scan</span>
-        </button>
+        </motion.button>
 
         {/* Export button — only shown when there's generated output */}
         {hasOutput && (
@@ -124,6 +126,8 @@ export default function TopBar({ onGenerate, onExport, onScan }: TopBarProps) {
             className="btn-ghost"
             initial={{ opacity: 0, x: 8 }}
             animate={{ opacity: 1, x: 0 }}
+            whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
+            whileTap={{ scale: 0.97 }}
             aria-label="Export generated code"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
@@ -136,13 +140,23 @@ export default function TopBar({ onGenerate, onExport, onScan }: TopBarProps) {
         )}
 
         {/* Generate button */}
-        <button
+        <motion.button
           id="topbar-generate-btn"
           onClick={onGenerate}
           disabled={!canGenerate || isGenerating}
-          className="btn-brand"
+          className="btn-brand relative overflow-hidden"
           aria-label="Generate app from sketch"
+          whileHover={!isGenerating && canGenerate ? { scale: 1.02 } : {}}
+          whileTap={!isGenerating && canGenerate ? { scale: 0.97 } : {}}
         >
+          {!isGenerating && canGenerate && (
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              initial={{ x: "-100%" }}
+              whileHover={{ x: "100%" }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            />
+          )}
           {isGenerating ? (
             <>
               <motion.div
@@ -160,7 +174,7 @@ export default function TopBar({ onGenerate, onExport, onScan }: TopBarProps) {
               <span>Generate</span>
             </>
           )}
-        </button>
+        </motion.button>
       </div>
     </header>
   );
