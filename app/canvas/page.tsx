@@ -9,6 +9,8 @@ import ScannerAnimation from "@/components/preview/ScannerAnimation";
 import { useCanvasStore } from "@/store/canvasStore";
 import { useGenerationStore } from "@/store/generationStore";
 import { useSketchParser } from "@/hooks/useSketchParser";
+import { useCodeGenerator } from "@/hooks/useCodeGenerator";
+import PreviewPane from "@/components/preview/PreviewPane";
 
 // Dynamic imports for heavy canvas/preview components
 const WorkspaceCanvas = dynamic(
@@ -29,6 +31,7 @@ export default function CanvasPage() {
   const status = useGenerationStore((s) => s.status);
   const setStatus = useGenerationStore((s) => s.setStatus);
   const { parse } = useSketchParser();
+  const { generate } = useCodeGenerator();
 
   const handleGenerate = useCallback(async () => {
     // If no sketch yet from Excalidraw, try snapshotting the canvas
@@ -49,9 +52,12 @@ export default function CanvasPage() {
       return;
     }
 
-    await parse(image ?? undefined);
-    // Code generation (Phase 3) will be wired here
-  }, [sketchImageBase64, isEmpty, setSketchImageBase64, parse]);
+    const graph = await parse(image ?? undefined);
+    if (graph) {
+      // Trigger code generation stream with the parsed logic graph
+      await generate(image ?? undefined);
+    }
+  }, [sketchImageBase64, isEmpty, setSketchImageBase64, parse, generate]);
 
   const handleExport = useCallback(() => {
     // Phase 4 — download generated files as zip
@@ -91,12 +97,8 @@ export default function CanvasPage() {
           )}
         </div>
 
-        {/* Preview panel placeholder — Phase 3 */}
-        {hasOutput && (
-          <div className="flex-1 glass-panel border-l border-[rgba(255,255,255,0.06)] flex items-center justify-center">
-            <p className="text-[#4b5563] text-sm">Preview pane — Phase 3</p>
-          </div>
-        )}
+        {/* Preview panel */}
+        {(hasOutput || isGenerating) && <PreviewPane />}
       </main>
 
       <StatusBar />
