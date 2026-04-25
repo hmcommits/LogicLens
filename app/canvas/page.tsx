@@ -11,6 +11,7 @@ import { useGenerationStore } from "@/store/generationStore";
 import { useSketchParser } from "@/hooks/useSketchParser";
 import { useCodeGenerator } from "@/hooks/useCodeGenerator";
 import PreviewPane from "@/components/preview/PreviewPane";
+import RefinementChat from "@/components/chat/RefinementChat";
 
 // Dynamic imports for heavy canvas/preview components
 const WorkspaceCanvas = dynamic(
@@ -105,6 +106,9 @@ export default function CanvasPage() {
 
       {/* Scan modal */}
       <ScanModal isOpen={isScanOpen} onClose={() => setIsScanOpen(false)} />
+
+      {/* Refinement Chat */}
+      <RefinementChat />
     </div>
   );
 }
