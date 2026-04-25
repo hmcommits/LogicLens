@@ -1,5 +1,10 @@
 "use client";
 
+// REQUIRED: Excalidraw 0.18+ ships its own CSS that must be explicitly imported.
+// Without this, the icon font (excalifont) fails to load and toolbar icons
+// render as giant fallback SVGs.
+import "@excalidraw/excalidraw/index.css";
+
 import { useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useCanvasStore } from "@/store/canvasStore";
@@ -82,9 +87,12 @@ export default function WorkspaceCanvas({ onSnapshotReady }: WorkspaceCanvasProp
   }, [exportSnapshot]);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full" style={{ width: "100%", height: "100%", minHeight: 0 }}>
       {/* Excalidraw canvas */}
-      <div className="absolute inset-0">
+      <div
+        className="absolute inset-0"
+        style={{ width: "100%", height: "100%", overflow: "hidden" }}
+      >
         <Excalidraw
           // @ts-expect-error — Excalidraw ref typing varies by version
           ref={excalidrawApiRef}

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+
+
 /* ============================================================
    LogicLens Design System — Dark Glassmorphic IDE Aesthetic
    ============================================================ */
@@ -394,3 +396,78 @@ body {
   transition: opacity var(--transition-base);
 }
 .tooltip:hover::after { opacity: 1; }
+
+/* ============================================================
+   Excalidraw Isolation — Surgical Tailwind v4 Preflight Fixes
+   ============================================================
+
+   Tailwind v4 preflight applies several global resets that
+   break Excalidraw's internal UI. We fix each one surgically
+   by restoring the correct values inside .excalidraw scope.
+   ============================================================ */
+
+/* FIX 1: Tailwind preflight sets `svg { display: block }` globally.
+   Excalidraw's toolbar/icon SVGs must remain inline-level.      */
+.excalidraw svg {
+  display: inline-block;
+  vertical-align: initial;
+}
+
+/* FIX 2: Tailwind preflight zero-resets margin, padding, border on *.
+   Excalidraw's toolbar buttons, panels, and inputs rely on their
+   own stylesheet for spacing — we revert to the browser default. */
+.excalidraw *,
+.excalidraw *::before,
+.excalidraw *::after {
+  margin: revert;
+  padding: revert;
+  border: revert;
+  box-sizing: revert;
+}
+
+/* FIX 3: Tailwind preflight strips button background, border-radius,
+   and sets appearance: button — Excalidraw handles button styling itself. */
+.excalidraw button,
+.excalidraw input,
+.excalidraw select,
+.excalidraw textarea {
+  font: revert;
+  color: revert;
+  border-radius: revert;
+  background-color: revert;
+  opacity: revert;
+  letter-spacing: revert;
+}
+
+/* FIX 4: Tailwind preflight resets list-style on ol/ul/menu.
+   Excalidraw uses lists internally for some dropdowns.           */
+.excalidraw ol,
+.excalidraw ul,
+.excalidraw menu {
+  list-style: revert;
+}
+
+/* FIX 5: Tailwind preflight resets h1-h6 font-size/weight to inherit.
+   Excalidraw dialog headings need their own sizing.              */
+.excalidraw h1,
+.excalidraw h2,
+.excalidraw h3,
+.excalidraw h4,
+.excalidraw h5,
+.excalidraw h6 {
+  font-size: revert;
+  font-weight: revert;
+}
+
+/* Ensure Excalidraw fills its container properly */
+.excalidraw {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Canvas pointer events stay active */
+.excalidraw canvas {
+  touch-action: none;
+}
+
+
