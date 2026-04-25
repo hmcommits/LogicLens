@@ -23,7 +23,6 @@ export function useCodeGenerator() {
 
     setStatus("generating");
     setFiles([]); // clear previous files
-    setError(null);
     const start = Date.now();
 
     try {

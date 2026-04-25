@@ -33,7 +33,6 @@ export function useRefiner() {
     
     setStatus("refining");
     setIsStreaming(true);
-    setError(null);
     const start = Date.now();
 
     // Make a backup of the current files to restore if refinement fails or to merge changes
