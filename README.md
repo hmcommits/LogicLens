@@ -5,8 +5,8 @@
   <p>An AI-powered visual development environment that instantly converts your rough whiteboard sketches and architectural diagrams into functional, production-ready React applications.</p>
 
   <p>
-    <a href="#demo-video"><strong>Watch Demo Video</strong></a> · 
-    <a href="https://logic-lens-mauve.vercel.app/"><strong>View Live Project</strong></a>
+    ▶️ <a href="https://youtu.be/AGeLCxv_Vjs"><strong>Watch Demo Video</strong></a> · 
+    🌐 <a href="https://logic-lens-mauve.vercel.app/"><strong>View Live Project</strong></a>
   </p>
 
   <p>
@@ -20,10 +20,10 @@
 
 ---
 
-## 🚀 Live Deployment & Demo
+## 🚀 Demo & Live Deployment
 
-- **Live Application:** [https://logic-lens-mauve.vercel.app/](https://logic-lens-mauve.vercel.app/)
-- **Demo Video:** [Demo Video Placeholder Link — Update with YouTube/Loom URL]
+- ▶️ **Demo Video:** [https://youtu.be/AGeLCxv_Vjs](https://youtu.be/AGeLCxv_Vjs)
+- 🌐 **Live Application:** [https://logic-lens-mauve.vercel.app/](https://logic-lens-mauve.vercel.app/)
 
 *(Note: If testing locally, please ensure you supply your own Gemini API keys in `.env.local`)*
 
