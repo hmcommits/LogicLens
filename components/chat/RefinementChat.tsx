@@ -85,12 +85,12 @@ export default function RefinementChat() {
                   messages.map((msg) => (
                     <div 
                       key={msg.id} 
-                      className={\`flex gap-3 \${msg.role === "user" ? "flex-row-reverse" : ""}\`}
+                      className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                     >
-                      <div className={\`w-6 h-6 rounded-full flex items-center justify-center shrink-0 \${msg.role === "user" ? "bg-brand text-white" : "bg-[rgba(0,212,255,0.2)] text-[#00d4ff]"}\`}>
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-brand text-white" : "bg-[rgba(0,212,255,0.2)] text-[#00d4ff]"}`}>
                         {msg.role === "user" ? <User className="w-3 h-3" /> : <Bot className="w-3 h-3" />}
                       </div>
-                      <div className={\`px-3 py-2 rounded-lg text-sm max-w-[85%] \${msg.role === "user" ? "bg-[rgba(255,255,255,0.05)] text-gray-200" : "bg-transparent text-[#a1a1aa] font-[family-name:var(--font-jetbrains-mono)]"}\`}>
+                      <div className={`px-3 py-2 rounded-lg text-sm max-w-[85%] ${msg.role === "user" ? "bg-[rgba(255,255,255,0.05)] text-gray-200" : "bg-transparent text-[#a1a1aa] font-[family-name:var(--font-jetbrains-mono)]"}`}>
                         {msg.content}
                       </div>
                     </div>

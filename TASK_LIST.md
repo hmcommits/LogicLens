@@ -42,28 +42,28 @@
 
 ## Phase 3 — AI Vision Pipeline (Parse Sketch)
 
-- [ ] Build `lib/ai/geminiClient.ts` — SDK init + dual-key failover wrapper
-- [ ] Define `LogicGraph` Zod schema in `lib/schemas/logicGraph.ts`
-- [ ] Build `lib/ai/parseSketch.ts` — Gemini 2.5 Flash multimodal prompt + response parser
-- [ ] Build `/api/parse-sketch/route.ts` — POST endpoint, 2-retry Zod validation
-- [ ] Build `useSketchParser.ts` hook — calls API, populates `generationStore`
-- [ ] Build `generationStore.ts` (Zustand): `logicGraph`, `generatedFiles`, `streamingStatus`
-- [ ] Animate `LogicOverlay` glow effects when `logicGraph` is populated
-- [ ] Build `ScannerAnimation.tsx` — Framer Motion sweep triggered on Generate
+- [x] Build `lib/ai/geminiClient.ts` — SDK init + dual-key failover wrapper
+- [x] Define `LogicGraph` Zod schema in `lib/schemas/logicGraph.ts`
+- [x] Build `lib/ai/parseSketch.ts` — Gemini 2.5 Flash multimodal prompt + response parser
+- [x] Build `/api/parse-sketch/route.ts` — POST endpoint, 2-retry Zod validation
+- [x] Build `useSketchParser.ts` hook — calls API, populates `generationStore`
+- [x] Build `generationStore.ts` (Zustand): `logicGraph`, `generatedFiles`, `streamingStatus`
+- [x] Animate `LogicOverlay` glow effects when `logicGraph` is populated
+- [x] Build `ScannerAnimation.tsx` — Framer Motion sweep triggered on Generate
 
 ---
 
 ## Phase 4 — Code Generation & Live Sandbox
 
-- [ ] Define `GeneratedProject` Zod schema in `lib/schemas/generatedCode.ts`
-- [ ] Build `lib/ai/generateCode.ts` — Gemini 2.5 Pro prompt with image + LogicGraph input
-- [ ] Build `/api/generate-code/route.ts` — Edge Function, SSE streaming response
-- [ ] Build `useCodeGenerator.ts` hook — SSE consumer, streams files into store
-- [ ] Build `lib/sandbox/sandpackConfig.ts` — dynamic template builder from `GeneratedProject`
-- [ ] Build `PreviewPane.tsx` — Sandpack provider with Preview and Code tabs
-- [ ] Build `CodeViewer.tsx` — syntax-highlighted streaming code display
-- [ ] Wire full pipeline: Canvas snapshot → Parse → Generate → Sandpack preview
-- [ ] Test with real sketch: draw 2 boxes + arrow, verify live interactive output
+- [x] Define `GeneratedProject` Zod schema in `lib/schemas/generatedCode.ts`
+- [x] Build `lib/ai/generateCode.ts` — Gemini 2.5 Pro prompt with image + LogicGraph input
+- [x] Build `/api/generate-code/route.ts` — Edge Function, SSE streaming response
+- [x] Build `useCodeGenerator.ts` hook — SSE consumer, streams files into store
+- [x] Build `lib/sandbox/sandpackConfig.ts` — dynamic template builder from `GeneratedProject`
+- [x] Build `PreviewPane.tsx` — Sandpack provider with Preview and Code tabs
+- [x] Build `CodeViewer.tsx` — syntax-highlighted streaming code display
+- [x] Wire full pipeline: Canvas snapshot → Parse → Generate → Sandpack preview
+- [x] Test with real sketch: draw 2 boxes + arrow, verify live interactive output
 
 ---
 
