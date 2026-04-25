@@ -40,6 +40,7 @@ export default function PreviewPane() {
           options={{
             showNavigator: true,
             showTabs: true,
+            showOpenInCodeSandbox: false,
             editorHeight: "100%",
             externalResources: ["https://cdn.tailwindcss.com"],
             classes: {
