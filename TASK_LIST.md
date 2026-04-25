@@ -5,18 +5,19 @@
 
 ---
 
-## Phase 1 — Project Scaffold & Design System
+## Phase 1 — Project Scaffold & Design System ✅
 
-- [ ] Initialize Next.js 15 project with TypeScript (`npx create-next-app@latest`)
-- [ ] Install and configure Tailwind CSS v4
-- [ ] Install shadcn/ui and initialize component library
-- [ ] Install core dependencies: Zustand, Framer Motion, Excalidraw, Sandpack, Zod, @google/generative-ai
-- [ ] Create `.env.example` with `GEMINI_API_KEY_1` and `GEMINI_API_KEY_2` placeholders
-- [ ] Set up dark theme CSS variable system in `globals.css` (glassmorphism tokens)
-- [ ] Configure Google Fonts (Inter / Outfit) in `layout.tsx`
-- [ ] Build `TopBar` component (logo, Generate button, Export action)
-- [ ] Build `StatusBar` component (active model display, key indicator, latency)
-- [ ] Build landing page (`app/page.tsx`) with hero section and CTA to `/canvas`
+- [x] Initialize Next.js 15 project with TypeScript (`npx create-next-app@latest`)
+- [x] Install and configure Tailwind CSS v4 (installed via scaffold)
+- [x] Install core dependencies: Zustand, Framer Motion, Excalidraw, Sandpack, Zod, @google/generative-ai
+- [x] Create `.env.example` with `GEMINI_API_KEY_1` and `GEMINI_API_KEY_2` placeholders
+- [x] Set up dark theme CSS variable system in `globals.css` (glassmorphism tokens, animations, utility classes)
+- [x] Configure Google Fonts (Inter + JetBrains Mono) in `layout.tsx` with full SEO metadata
+- [x] Create all 3 Zustand stores: `canvasStore`, `generationStore`, `chatStore`
+- [x] Build `TopBar` component (logo, pipeline stage breadcrumb, Scan/Export/Generate buttons)
+- [x] Build `StatusBar` component (active model display, key indicator, latency, globalIntent)
+- [x] Build landing page (`app/page.tsx`) with hero, 4-step guide, features grid, CTA
+- [x] Build canvas page stub (`app/canvas/page.tsx`) with TopBar + StatusBar wired
 
 ---
 
