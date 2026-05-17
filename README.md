@@ -72,7 +72,7 @@ To handle rate limits and 429 Resource Exhausted errors seamlessly during hackat
 - **Live Preview:** [Sandpack (CodeSandbox)](https://sandpack.codesandbox.io/)
 - **State Management:** [Zustand](https://zustand-demo.pmnd.rs/)
 - **Validation:** [Zod](https://zod.dev/)
-- **File Export:** [JSZip](https://stuk.github.io/jszip/)
+- **File Export:** JSZip
 
 ---
 
@@ -120,6 +120,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-<div align="center">
-  <i>Built for the Gemini AI Hackathon</i>
-</div>
+
