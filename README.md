@@ -70,7 +70,7 @@ To handle rate limits and 429 Resource Exhausted errors seamlessly during hackat
 - **AI Models:** [Google Gemini 2.5 Flash & 2.5 Pro](https://ai.google.dev/)
 - **Canvas Engine:** [Excalidraw](https://excalidraw.com/)
 - **Live Preview:** [Sandpack (CodeSandbox)](https://sandpack.codesandbox.io/)
-- **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **State Management:** [Zustand](https://zustand-demo.pmnd.rs/)
 - **Validation:** [Zod](https://zod.dev/)
 - **File Export:** [JSZip](https://stuk.github.io/jszip/)
 
@@ -85,7 +85,7 @@ To handle rate limits and 429 Resource Exhausted errors seamlessly during hackat
 ### 2. Clone and Install
 Clone the repository and install the dependencies:
 ```bash
-git clone https://github.com/hmcommits/LogicLens.git
+git clone <repository-url>
 cd LogicLens
 npm install
 ```
