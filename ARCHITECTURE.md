@@ -1,6 +1,4 @@
-# LogicLens — Complete Architectural Plan
-
-> **Status:** Approved ✅ | Last Updated: 2026-04-25
+# LogicLens — System Architecture
 
 ## Vision Summary
 
